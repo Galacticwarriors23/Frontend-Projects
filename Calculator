@@ -1,0 +1,63 @@
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+
+
+function App() {
+  const [display,setDisplay]= useState('');
+const handleSumbit=(value)=>{
+  
+setDisplay(display+value);
+}
+const handleDel=()=>{
+  setDisplay('');
+}
+const handleval=()=>{
+  try{
+
+    setDisplay(eval(display).toString());
+  }
+  catch(error){
+   setDisplay("Error")
+    
+    
+  }
+
+}
+const text={
+  fontSize:'90'
+}
+
+
+
+  return (
+    
+    <div className=' box'>   <input type="text"  value={display} id='input' readOnly />  
+  <div className='buttons'>
+    <button className='button' style={text} onClick={()=>handleSumbit('1')}  >1</button>
+    <button className='button' onClick={()=>handleSumbit('2')}>2</button>
+    <button className='button' onClick={()=>handleSumbit('3')}>3</button>
+    <button className='button' onClick={()=>handleSumbit('4')}>4</button>
+    <button className='button' onClick={()=>handleSumbit('5')}>5</button>
+    <button className='button'onClick={()=>handleSumbit('6')}>6</button>
+    <button className='button'onClick={()=>handleSumbit('7')}>7</button>
+    <button className='button' onClick={()=>handleSumbit('8')}>8</button>
+    <button className='button' onClick={()=>handleSumbit('9')}>9</button>
+    <button className='button' onClick={()=>handleSumbit('0')}>0</button>
+    <button className='button' onClick={()=>handleSumbit('+')}>+</button>
+    
+   <button className='button' onClick={()=>handleSumbit('-')}>-</button>
+    <button className='button' onClick={()=>handleSumbit('*')}>*</button>
+    <button className='button'onClick={()=>handleSumbit('/')}>/</button>
+    <button className='button'onClick={handleDel}>C</button>
+    </div>
+   <div className='o'> <button className='button'onClick={handleval}>=</button></div>
+    
+
+  </div>
+
+  )
+}
+   
+export default App;
