@@ -1,0 +1,56 @@
+import React, { useState } from "react";
+import "./tick.css"; // Include any styling for the board here
+
+const Game = () => {
+    const [board, setBoard] = useState(Array(9).fill(null));
+    const [isXNext, setIsXNext] = useState(true);
+
+    const HandleMove = (index) => {
+        if (board[index] || calculate(board)) return;
+
+        const newBoard = [...board];
+        newBoard[index] = isXNext ? "X" : "O";
+        setBoard(newBoard);
+        setIsXNext(!isXNext);
+    };
+
+    const calculate = (board) => {
+        const winnerCombination = [
+            [0, 1, 2], [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+            [3, 4, 5], [6, 7, 8], [2, 4, 6], [0, 4, 8]
+        ];
+        for (let [a, b, c] of winnerCombination) {
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a];
+            }
+        }
+        return null;
+    };
+
+    const winner = calculate(board);
+    const isBoardFull = board.every(cell => cell !== null);
+
+    return (
+        <div>
+            <h1>Tic-Tac-Toe</h1>
+            <div className="board">
+                {board.map((cell, index) => (
+                    <button key={index} onClick={() => HandleMove(index)}>
+                        {cell}
+                    </button>
+                ))}
+            </div>
+            <div>
+                {winner ? `Winner: ${winner}` : isBoardFull ? "It's a tie!" : `Next Player: ${isXNext ? 'X' : 'O'}`}
+            </div>
+            <button onClick={() => {
+                setBoard(Array(9).fill(null));
+                setIsXNext(true);
+            }}>
+                Reset
+            </button>
+        </div>
+    );
+};
+
+export default Game;
